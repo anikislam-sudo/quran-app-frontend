@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Font: Scheherazade New ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+
+/* ── Design Tokens ────────────────────────────────────────────────────────── */
+:root {
+  --bg:               #050e1d;
+  --surface:          #081525;
+  --surface-raised:   #0d1d32;
+  --surface-hover:    #112240;
+  --gold:             #c9a535;
+  --gold-light:       #e8c56a;
+  --gold-dim:         rgba(201, 165, 53, 0.09);
+  --gold-border:      rgba(201, 165, 53, 0.16);
+  --gold-border-hv:   rgba(201, 165, 53, 0.45);
+  --cream:            #f0e6cc;
+  --cream-muted:      #9a8a68;
+  --cream-dim:        #4a3f2a;
+  --radius:           12px;
+  --transition:       0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── Custom Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Arabic Fonts ─────────────────────────────────────────────────────────── */
+.arabic-amiri       { font-family: 'Amiri', serif; }
+.arabic-scheherazade { font-family: 'Scheherazade New', serif; }
+
+/* ── Selection ─────────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(201, 165, 53, 0.28);
+  color: var(--cream);
+}
+
+/* ── Focus ring ─────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Geometric background pattern (CSS-only tile) ─────────────────────────── */
+.geo-pattern {
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(201,165,53,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(201,165,53,0.04) 0%, transparent 50%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 28px,
+      rgba(201,165,53,0.025) 28px,
+      rgba(201,165,53,0.025) 29px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 28px,
+      rgba(201,165,53,0.025) 28px,
+      rgba(201,165,53,0.025) 29px
+    );
+}
+
+/* ── Gold shimmer line ─────────────────────────────────────────────────────── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+  opacity: 0.45;
+}
+
+/* ── Card base ─────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  border-color: var(--gold-border-hv);
+  background: var(--surface-hover);
+  box-shadow: 0 0 0 1px var(--gold-border), 0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* ── Fade-in animation ─────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.45s ease both; }
+
+/* ── Staggered card animations ─────────────────────────────────────────────── */
+.stagger > * {
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+.stagger > *:nth-child(1)  { animation-delay: 0.03s; }
+.stagger > *:nth-child(2)  { animation-delay: 0.06s; }
+.stagger > *:nth-child(3)  { animation-delay: 0.09s; }
+.stagger > *:nth-child(4)  { animation-delay: 0.12s; }
+.stagger > *:nth-child(5)  { animation-delay: 0.15s; }
+.stagger > *:nth-child(6)  { animation-delay: 0.18s; }
+.stagger > *:nth-child(7)  { animation-delay: 0.21s; }
+.stagger > *:nth-child(8)  { animation-delay: 0.24s; }
+.stagger > *:nth-child(9)  { animation-delay: 0.27s; }
+.stagger > *:nth-child(10) { animation-delay: 0.30s; }
+.stagger > *:nth-child(n+11) { animation-delay: 0.33s; }
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────────── */
+@keyframes slideIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slideOut { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+.sidebar-enter { animation: slideIn  0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.sidebar-exit  { animation: slideOut 0.28s cubic-bezier(0.7,  0, 0.84, 0) forwards; }
+
+/* ── Verse number badge ─────────────────────────────────────────────────────── */
+.verse-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Range input ─────────────────────────────────────────────────────────────── */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--surface-hover);
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 6px rgba(201,165,53,0.4);
+  transition: transform 0.15s ease;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+
+/* ── Bismillah decorative line ───────────────────────────────────────────────── */
+.bismillah-container {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  position: relative;
+}
+.bismillah-container::before,
+.bismillah-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 25%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-border) 100%);
+}
+.bismillah-container::before { left: 0; }
+.bismillah-container::after  { right: 0; background: linear-gradient(90deg, var(--gold-border), transparent 100%); }
