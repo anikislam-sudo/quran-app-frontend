@@ -1,4 +1,6 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const BASE =
+  process.env.NEXT_PUBLIC_API_URL ??
+  "https://quran-app-backend-svz2.onrender.com";
 
 import type { Surah, SurahDetail, SearchResult } from "./types";
 
