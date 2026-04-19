@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { fetchAllSurahIds, fetchSurah } from "@/lib/api";
 import { AyatPageClient } from "./AyatPageClient";
-
+export const revalidate = 60;
 interface PageProps {
   params: { id: string };
 }
